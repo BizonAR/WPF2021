@@ -16,7 +16,7 @@ namespace Trajectory
             Console.WriteLine("Введите шаг изменения времени");
             steps = Convert.ToDouble(Console.ReadLine());
         }
-        public void output(double time)
+        public void out_put(double time)
         {
             x = speed * Math.Cos(angle) * time;
             y = speed * Math.Sin(angle) * time - 4.9 * time * time;
@@ -28,9 +28,9 @@ namespace Trajectory
         {
             for (double i = 0; i < time; i += steps)
             {
-                output(i);
+                out_put(i);
             }
-            output(time);
+            out_put(time);
         }
         public static void Main(string[] args)
         {
