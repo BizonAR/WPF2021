@@ -73,6 +73,10 @@ namespace Trajectory
 
     class Bodyflight
     {
+        static double myRound(double x, int precision)
+        {
+            return ((int)(x * Math.Pow(10.0, precision)) / Math.Pow(10.0, precision));
+        }
         static int GetDecimalDigitsCount(double number)
         {
             string[] str = number.ToString(new System.Globalization.NumberFormatInfo() { NumberDecimalSeparator = "." }).Split('.');
@@ -205,14 +209,15 @@ namespace Trajectory
                 for (int i = 1; i < Coordinates.Count + 1; ++i)
                 {
                     sw.Write("x(");
-                    sw.Write(Math.Round(steps * Convert.ToDouble(i),how_many_decimal_places));
+                    sw.Write(myRound(steps * Convert.ToDouble(i),how_many_decimal_places));
                     sw.Write(") = ");
-                    sw.Write(Math.Round(Coordinates[i - 1].X, how_many_decimal_places));
+                    sw.Write(myRound(Coordinates[i - 1].X, how_many_decimal_places));
                     sw.Write("\t" + "y(");
-                    sw.Write(Math.Round(steps * Convert.ToDouble(i), how_many_decimal_places));
+                    sw.Write(myRound(steps * Convert.ToDouble(i), how_many_decimal_places));
                     sw.Write(") = ");
-                    sw.Write(Math.Round(Coordinates[i - 1].Y, how_many_decimal_places));
+                    sw.Write(myRound(Coordinates[i - 1].Y, how_many_decimal_places));
                     sw.Write("\n");
+                    sw.Write("x(");
                 }
             }
         }
