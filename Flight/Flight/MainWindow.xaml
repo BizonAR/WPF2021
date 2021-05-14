@@ -1,0 +1,96 @@
+﻿<Window x:Class="Flight.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Flight"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="268*"></ColumnDefinition>
+            <ColumnDefinition Width="95*"></ColumnDefinition>
+            <ColumnDefinition Width="429*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"></RowDefinition>
+            <RowDefinition Height="29*"></RowDefinition>
+            <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="43*"></RowDefinition>
+            <RowDefinition Height="42*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+            <RowDefinition Height="41*"></RowDefinition>
+            <RowDefinition Height="56*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="0" Text="Начальные данные"/>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="1">
+                   Начальная скорость:
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="2">
+                   Угол:
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="3">
+                   Шаг изменения времени:
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="4">
+                   Ускорение свободного падения:
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="5">
+                   Коэффициент плотности среды:
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="6">
+                   Радиус тела:
+        </TextBlock>
+        <TextBox x:Name="speed_textbox" Grid.Column="1"
+                   Grid.Row="1" Height="18" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput">
+        </TextBox>
+        <TextBox x:Name="angle_textbox" Grid.Column="1"
+                   Grid.Row="2" PreviewTextInput="TextBox_PreviewTextInput">
+        </TextBox>
+        <TextBox x:Name="steps_textbox" Grid.Column="1"
+                   Grid.Row="3" Text="0,01" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox x:Name="acceleration_of_gravity_textbox" Grid.Column="1"
+                   Grid.Row="4" PreviewTextInput="TextBox_PreviewTextInput" Text="9,81"/>
+        <TextBox x:Name="medium_density_textbox" Grid.Column="1"
+                   Grid.Row="5" PreviewTextInput="TextBox_PreviewTextInput">1,2754</TextBox>
+        <TextBox x:Name="body_radius_textbox" Grid.Column="1"
+                   Grid.Row="6" PreviewTextInput="TextBox_PreviewTextInput">
+        </TextBox>
+        <StackPanel x:Name="body_type_panel" Grid.Column="0"
+                    Grid.Row="7"
+            Grid.ColumnSpan ="2" >
+            <RadioButton x:Name="sphere_radiobutton" GroupName="body_type" Content="Сфера"/>
+            <RadioButton x:Name="cone_radiobutton" GroupName="body_type" Content="Конус 2:1 (остриём к потоку)"/>
+            <RadioButton x:Name="cube_radiobutton" GroupName="body_type" Content="Куб (поверхностью к потоку)"/>
+            <RadioButton x:Name="cylinder_radiobutton" GroupName="body_type" Content="Цилиндр (длина равна двум диаметрам, торцом к потоку)"/>
+        </StackPanel>
+        <Button x:Name="start_button"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="8"
+            Content="Запуск" Click="start_button_Click">
+        </Button>
+        <Button x:Name="clear_button"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="9"
+            Content="Очистить" Click="clear_button_Click" RenderTransformOrigin="0.5,0.5">
+        </Button>
+        <TextBlock
+            Grid.Column="0"
+            Grid.Row="10"> Название файла, куда записать данные:</TextBlock>
+        <TextBox x:Name="file_name_textbox"
+            Grid.Column="1"
+            Grid.Row="10"></TextBox>
+    </Grid>
+</Window>
