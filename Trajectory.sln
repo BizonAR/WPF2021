@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trajectory", "Trajectory\Trajectory.csproj", "{C5AEB399-0B38-411B-A778-535AF0FBD723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trajectory", "Trajectory\Trajectory.csproj", "{C5AEB399-0B38-411B-A778-535AF0FBD723}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trajectory1", "Trajectory1", "{31BF9B23-BB11-4F94-BD6C-D788D3BFA62F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BodyFlight", "BodyFlight", "{A17D38D8-2A10-4086-8ABA-F81A20E9DA75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp3", "..\WpfApp3\WpfApp3\WpfApp3.csproj", "{87B9ED88-54CE-4C13-B2B6-348C78BC36D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{C5AEB399-0B38-411B-A778-535AF0FBD723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5AEB399-0B38-411B-A778-535AF0FBD723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5AEB399-0B38-411B-A778-535AF0FBD723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B9ED88-54CE-4C13-B2B6-348C78BC36D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B9ED88-54CE-4C13-B2B6-348C78BC36D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B9ED88-54CE-4C13-B2B6-348C78BC36D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B9ED88-54CE-4C13-B2B6-348C78BC36D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5AEB399-0B38-411B-A778-535AF0FBD723} = {31BF9B23-BB11-4F94-BD6C-D788D3BFA62F}
+		{87B9ED88-54CE-4C13-B2B6-348C78BC36D2} = {A17D38D8-2A10-4086-8ABA-F81A20E9DA75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {844E6398-7EF7-4CF5-824C-5964838A6B6E}
