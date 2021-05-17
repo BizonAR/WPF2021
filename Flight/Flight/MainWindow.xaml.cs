@@ -79,11 +79,12 @@ namespace Flight
             Index_RadioButton();
             if (speed_textbox.Text != "" && angle_textbox.Text != "" && steps_textbox.Text != ""
                 && acceleration_of_gravity_textbox.Text != "" && medium_density_textbox.Text != ""
-                && body_radius_textbox.Text != "" && index != int.MinValue && file_name_textbox.Text != "")
+                && body_radius_textbox.Text != "" && index != int.MinValue)
             {
                 Output();
             }
-            else speed_textbox.Text = "1000";
+            else
+                MessageBox.Show("Не до конца заполнили начальные данные", "Body flight", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void clear_button_Click(object sender, RoutedEventArgs e)
@@ -94,11 +95,9 @@ namespace Flight
             acceleration_of_gravity_textbox.Text = "9,81";
             medium_density_textbox.Text = "1,2754";
             body_radius_textbox.Text = "";
-            file_name_textbox.Text = "";
         }
         private void Input()
         {
-            file_name = file_name_textbox.Text;
             starting_speed = Convert.ToDouble(speed_textbox.Text);
             angle = Math.PI * Convert.ToDouble(angle_textbox.Text) / 180;
             steps = Convert.ToDouble(steps_textbox.Text);
@@ -166,13 +165,15 @@ namespace Flight
             }
             coords.Y = 0;
             Coordinates.Add(coords);
+            MessageBox.Show("Расстояние которое пролитело тело: " + myRound(coords.X, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Время полёта: " + myRound(steps * Coordinates.Count,how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Output()
         {
             Input();
             CountingcCordinates();
-            string path = @"..\..\" + file_name + ".csv";
+            /*string path = @"..\..\..\" + file_name + ".csv";
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
             {
                 for (int i = 1; i < Coordinates.Count + 1; ++i)
@@ -187,7 +188,7 @@ namespace Flight
                     sw.Write(myRound(Coordinates[i - 1].Y, how_many_decimal_places));
                     sw.Write("\n");
                 }
-            }
+            }*/
         }
     }
 }

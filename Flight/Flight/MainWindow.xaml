@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flight"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Body flight" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="268*"></ColumnDefinition>
@@ -23,7 +23,6 @@
             <RowDefinition Height="70*"></RowDefinition>
             <RowDefinition Height="35*"></RowDefinition>
             <RowDefinition Height="41*"></RowDefinition>
-            <RowDefinition Height="56*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0"
                    Grid.Row="0" Text="Начальные данные"/>
@@ -86,11 +85,5 @@
             Grid.Row="9"
             Content="Очистить" Click="clear_button_Click" RenderTransformOrigin="0.5,0.5">
         </Button>
-        <TextBlock
-            Grid.Column="0"
-            Grid.Row="10"> Название файла, куда записать данные:</TextBlock>
-        <TextBox x:Name="file_name_textbox"
-            Grid.Column="1"
-            Grid.Row="10"></TextBox>
     </Grid>
 </Window>
