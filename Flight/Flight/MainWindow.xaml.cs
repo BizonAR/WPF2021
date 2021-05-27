@@ -165,7 +165,7 @@ namespace Flight
             }
             coords.Y = 0;
             Coordinates.Add(coords);
-            MessageBox.Show("Расстояние которое пролитело тело: " + myRound(coords.X, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Расстояние которое пролетело тело: " + myRound(coords.X, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
             MessageBox.Show("Время полёта: " + myRound(steps * Coordinates.Count,how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
