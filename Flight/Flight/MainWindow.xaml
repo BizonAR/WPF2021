@@ -85,5 +85,18 @@
             Grid.Row="9"
             Content="Очистить" Click="clear_button_Click" RenderTransformOrigin="0.5,0.5">
         </Button>
+        <Canvas x:Name="canvas"
+            Grid.Column="2"
+            Grid.Row="1"
+            Grid.RowSpan="9">
+            <Polyline x:Name="polyline"
+                Stroke="Turquoise">
+            </Polyline>
+            <Ellipse x:Name="elipse"
+                     Stroke="White"
+                     Width="10"
+                     Height="10">
+            </Ellipse>
+        </Canvas>
     </Grid>
 </Window>

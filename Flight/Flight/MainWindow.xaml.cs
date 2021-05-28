@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Flight
 {
@@ -22,6 +23,7 @@ namespace Flight
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer timer = new DispatcherTimer();
         static double myRound(double x, int precision)
         {
             return ((int)(x * Math.Pow(10.0, precision)) / Math.Pow(10.0, precision));
@@ -31,7 +33,7 @@ namespace Flight
             string[] str = number.ToString(new System.Globalization.NumberFormatInfo() { NumberDecimalSeparator = "." }).Split('.');
             return str.Length == 2 ? str[1].Length : 0;
         }
-        struct Coords
+        /*struct Coords
         {
             public Coords(double x, double y)
             {
@@ -42,11 +44,11 @@ namespace Flight
             public double X { get; set; }
             public double Y { get; set; }
         }
-        List<Coords> Coordinates = new List<Coords>();
+        List<Coords> Coordinates = new List<Coords>();*/
         double acceleration_of_gravity, steps, starting_speed, angle,
-            drag_coefficient, medium_density, body_radius, resistance_force;
+            drag_coefficient, medium_density, body_radius, resistance_force, cofficient_width, cofficient_height, x = 0,y = 0, 
+            actual_width, actual_height, coordsx = 0, coordsy = 0, speedx, speedy, speed = 0;
         int how_many_decimal_places = 2, index = int.MinValue;
-        string file_name;
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -56,6 +58,8 @@ namespace Flight
         public MainWindow()
         {
             InitializeComponent();
+            timer.Tick += new EventHandler(OnTimer);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 800);
         }
 
         private static readonly Regex _regex = new Regex("[^0-9,]");
@@ -95,6 +99,7 @@ namespace Flight
             acceleration_of_gravity_textbox.Text = "9,81";
             medium_density_textbox.Text = "1,2754";
             body_radius_textbox.Text = "";
+            sphere_radiobutton.IsChecked = cone_radiobutton.IsChecked = cube_radiobutton.IsChecked = cylinder_radiobutton.IsChecked = false;
         }
         private void Input()
         {
@@ -144,13 +149,64 @@ namespace Flight
             if (index == 4)
                 resistance_force = drag_coefficient * medium_density * speed * speed * Math.PI * body_radius * body_radius * body_radius;
         }
-        private void CountingcCordinates()
+
+        private void OnTimer(Object sender, EventArgs args)
+        {
+            if (coordsy >= 0)
+            {
+                coordsx = coordsx + steps * speedx;
+                x = actual_width + 1000 * coordsx;
+                speedx = speedx - steps * resistance_force * speedx;
+                coordsy = coordsy + steps * speedy;
+                y = actual_height + 1000 * coordsy * (-1);
+                speedy = speedy - steps * (9.81 + resistance_force * speedy);
+                if (coordsy <= 0 && speed != 0)
+                {
+                    y = actual_height;
+                    polyline.Points.Add(new Point(x, y));
+                    Canvas.SetLeft(elipse, polyline.Points.Last().X - elipse.Width / 2.0);
+                    Canvas.SetTop(elipse, polyline.Points.Last().Y - elipse.Height / 2.0);
+                    MessageBox.Show("Расстояние которое пролетело тело: " + myRound(coordsx, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
+                    timer.Stop();
+                }
+                else
+                {
+                    polyline.Points.Add(new Point(x, y));
+                    Canvas.SetLeft(elipse, polyline.Points.Last().X - elipse.Width / 2.0);
+                    Canvas.SetTop(elipse, polyline.Points.Last().Y - elipse.Height / 2.0);
+                    if (polyline.Points.Count == 1)
+                    {
+                        elipse.Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                        elipse.Stroke = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                    }
+                    if (speed == 0)
+                    {
+                        speedx = starting_speed * Math.Cos(angle);
+                        speedy = starting_speed * Math.Sin(angle);
+                    }
+                    speed = Math.Sqrt(speedx * speedx + speedy * speedy);
+                    Calculation_of_the_resistance_force(speed);
+                }
+            }
+            else
+            {
+                y = actual_height;
+                polyline.Points.Add(new Point(x, y));
+                Canvas.SetLeft(elipse, polyline.Points.Last().X - elipse.Width / 2.0);
+                Canvas.SetTop(elipse, polyline.Points.Last().Y - elipse.Height / 2.0);
+                MessageBox.Show("Расстояние которое пролетело тело: " + myRound(coordsx, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
+                timer.Stop();
+            }
+        }
+        /*private void CountingcCordinates()
         {
             double speed;
             double speedx = starting_speed * Math.Cos(angle);
             double speedy = starting_speed * Math.Sin(angle);
             Coords coords = new Coords(0, 0);
             Coordinates.Add(coords);
+            cofficient_width = canvas.ActualWidth / 2 / 2 * Math.Sin(100) * (100 + Math.Sin(100 * 100 / 2));
+            cofficient_height = canvas.ActualHeight / 2 / 2 * Math.Cos(100) * (100 + Math.Sin(100 * 100 / 2));
             while (coords.Y >= 0)
             {
                 coords.X = coords.X + steps * speedx;
@@ -167,12 +223,27 @@ namespace Flight
             Coordinates.Add(coords);
             MessageBox.Show("Расстояние которое пролетело тело: " + myRound(coords.X, how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
             MessageBox.Show("Время полёта: " + myRound(steps * Coordinates.Count,how_many_decimal_places), "Body flight", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        }*/
 
+        private void clear()
+        {
+            speed = 0;
+            speedx = 0;
+            speedy = 0;
+            coordsx = 0;
+            coordsy = 0;
+            elipse.Fill = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            elipse.Stroke = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        }
         private void Output()
         {
             Input();
-            CountingcCordinates();
+            //CountingcCordinates();
+            polyline.Points.Clear();
+            actual_width = canvas.ActualWidth / 2;
+            actual_height = canvas.ActualHeight / 2;
+            clear();
+            timer.Start();
             /*string path = @"..\..\..\" + file_name + ".csv";
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
             {
